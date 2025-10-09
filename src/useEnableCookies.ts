@@ -72,6 +72,16 @@ export const useEnableCookies = ({
     }
   }, []);
 
+  useEffect(() => {
+    const listener = () => {
+      if (document.visibilityState === "visible") {
+        location.reload();
+      }
+    };
+    document.addEventListener("visibilitychange", listener);
+    return () => document.removeEventListener("visibilitychange", listener);
+  }, []);
+
   return {
     enablementStep,
     enablementFailed,
